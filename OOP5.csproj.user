@@ -1,0 +1,40 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="Current" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Compile Update="source\GUI\Forms\ChangePassword.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="source\GUI\Forms\DebugMenu.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="source\GUI\Forms\Login.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="source\GUI\Forms\MainScreen.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="source\GUI\Forms\PopUpError.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="source\GUI\Forms\ProductView.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="source\GUI\Forms\Register.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="source\GUI\Forms\RemoveUsers.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="source\GUI\Forms\Store.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="source\GUI\Forms\Wishlist.cs">
+      <SubType>Form</SubType>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Update="Properties\Resources.resx">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+  </ItemGroup>
+</Project>

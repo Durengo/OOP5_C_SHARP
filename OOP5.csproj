@@ -1,0 +1,63 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>net6.0-windows</TargetFramework>
+    <Nullable>enable</Nullable>
+    <UseWindowsForms>true</UseWindowsForms>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Platforms>AnyCPU;x64</Platforms>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Remove="BCK\**" />
+    <EmbeddedResource Remove="BCK\**" />
+    <None Remove="BCK\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="System.Data.SQLite" Version="1.0.117" />
+    <PackageReference Include="System.Drawing.Common" Version="7.0.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Update="Properties\Resources.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <Compile Update="source\GUI\Forms\AccountView.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="source\GUI\Forms\CreateProduct.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="source\GUI\Forms\RemoveProduct.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="source\GUI\Forms\CreateCategory.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="source\GUI\Forms\CommentsArchive.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="source\GUI\Forms\WriteComment.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="source\GUI\Forms\PostLogin.cs">
+      <SubType>Form</SubType>
+    </Compile>
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Update="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+  </ItemGroup>
+
+  <Target Name="PostBuild" AfterTargets="PostBuildEvent">
+    <Exec Command="(robocopy &quot;$(ProjectDir)data&quot; &quot;$(OutDir)data&quot; /e /mir) ^&amp; IF %25ERRORLEVEL%25 LEQ 1 exit 0" />
+  </Target>
+
+</Project>
