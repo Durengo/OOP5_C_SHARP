@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 namespace OOP5.source.Database
 {
     using OOP5.source.Core;
+
     public class DatabaseManager
     {
         // sqlite instance:
@@ -19,6 +20,8 @@ namespace OOP5.source.Database
         public CommentsArchiveDatabase CommentsArchiveDB = new CommentsArchiveDatabase();
         public CommentsDatabase CommentsDB = new CommentsDatabase();
         public ProductDatabase ProductDB = new ProductDatabase();
+        public ShoppingCartDatabase ShoppingCartDB = new ShoppingCartDatabase();
+
         // Following variable is important for adding and removing product tables and adding, removing, modifying product records.
         // TODO: find a better way to implement.
         public List<string> ProductTables;
@@ -32,6 +35,7 @@ namespace OOP5.source.Database
             CommentsDB.Generate();
             WishlistArchiveDB.Generate();
             WishlistDB.Generate();
+            ShoppingCartDB.Generate();
 
             // Change .cfg value.
             if (!SessionManager.Instance.SessionConfiguration.DatabaseFound)

@@ -39,7 +39,6 @@ namespace OOP5.source.GUI.Forms
             ConnectionStatus.Text = db1.ConnectionErr.ToString();
             ConnectionStatus.Text = db1.ConnectionErr.ToString();
 
-
             // for (int i = 0; i < SessionManager.Instance.UserCount; i++)
             // {
             //     List<string> items = db1.SelectItem("Users", "ID, UserType, Username, Password, Name, Surname, DateOfBirth", "ID = " + i);
@@ -59,10 +58,12 @@ namespace OOP5.source.GUI.Forms
 
         private void DebugMenu_Closing(object sender, EventArgs e)
         {
-            for (int i = 0; i < SessionManager.Instance.openForms.Count; i++)
-            {
-                SessionManager.Instance.openForms[SessionManager.Instance.openForms.Count - 1 - i].Close();
-            }
+            SessionManager.Instance.Shutdown();
+
+            // for (int i = 0; i < SessionManager.Instance.openForms.Count; i++)
+            // {
+            //     SessionManager.Instance.openForms[SessionManager.Instance.openForms.Count - 1 - i].Close();
+            // }
         }
 
         private void ChangeDBButton1_Click(object sender, EventArgs e)

@@ -14,8 +14,8 @@ namespace OOP5.source.Core
             var format = GetImageFormat(imageFilepath);
 
             return ImageToBase64(img, format);
-
         }
+
         public static string ImageToBase64(Image img, System.Drawing.Imaging.ImageFormat format)
         {
             using (MemoryStream ms = new MemoryStream())
@@ -26,6 +26,7 @@ namespace OOP5.source.Core
                 return base64String;
             }
         }
+
         public static Image Base64ToImage(string base64String)
         {
             byte[] imageBytes = Convert.FromBase64String(base64String);
@@ -34,12 +35,15 @@ namespace OOP5.source.Core
             Image image = Image.FromStream(ms, true);
             return image;
         }
+
         public static System.Drawing.Imaging.ImageFormat GetImageFormat(string file)
         {
             string extension = Path.GetExtension(file);
             if (string.IsNullOrEmpty(extension))
             {
-                throw new ArgumentException(string.Format("Unable to determine file extension for filename: {0}", file));
+                throw new ArgumentException(
+                    string.Format("Unable to determine file extension for filename: {0}", file)
+                );
             }
             switch (extension.ToLower())
             {

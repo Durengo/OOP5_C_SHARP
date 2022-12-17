@@ -7,18 +7,22 @@ using System.Threading.Tasks;
 namespace OOP5.source.User
 {
     using source.Person;
+
     public enum AccountType
     {
         ADMINISTRATOR = 0,
         ANONYMOUS = 1,
-        REGISTERED = 2
+        REGISTERED = 2,
+        FINANCER = 3
     };
+
     public class User : Person
     {
         private string AccountName;
         private string AccountPassword;
         private AccountType AccountType;
         private Bitmap AvatarImage;
+
         public User(
             string username,
             string password,
@@ -30,6 +34,7 @@ namespace OOP5.source.User
             AccountName = username;
             AccountPassword = password;
         }
+
         public User(
             string username,
             string password,
@@ -43,6 +48,7 @@ namespace OOP5.source.User
             AccountPassword = password;
             AvatarImage = new Bitmap(avatar);
         }
+
         public User(
             string username,
             string password,
@@ -56,10 +62,12 @@ namespace OOP5.source.User
             AccountPassword = password;
             AvatarImage = avatar;
         }
+
         public override string ToString()
         {
             return Username + " " + Name + " " + Surname + " " + BirthDate;
         }
+
         public string Username
         {
             get { return AccountName; }
@@ -69,6 +77,7 @@ namespace OOP5.source.User
         {
             get { return AccountPassword; }
         }
+
         public bool ChangePassword(string currentPass, string newPass)
         {
             if (currentPass == AccountPassword)
@@ -78,6 +87,7 @@ namespace OOP5.source.User
             }
             return false;
         }
+
         public AccountType UserAccountType
         {
             get { return AccountType; }
@@ -91,6 +101,7 @@ namespace OOP5.source.User
             get { return AvatarImage; }
             set { AvatarImage = value; }
         }
+
         public static AccountType StringToAccountType(string type)
         {
             switch (type)
@@ -101,6 +112,8 @@ namespace OOP5.source.User
                     return AccountType.ANONYMOUS;
                 case "Registered":
                     return AccountType.REGISTERED;
+                case "Financer":
+                    return AccountType.FINANCER;
                 default:
                     //Debug.Assert(false);
                     return AccountType.ANONYMOUS;

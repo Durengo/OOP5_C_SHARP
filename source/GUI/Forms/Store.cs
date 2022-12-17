@@ -19,6 +19,7 @@ namespace OOP5.source.GUI.Forms
         private ImageList ImageList = new ImageList();
         private List<Product.Product> Products = new List<Product.Product>();
         private List<string> ProductSerialNames = new List<string>();
+
         public Store()
         {
             InitializeComponent();
@@ -39,18 +40,28 @@ namespace OOP5.source.GUI.Forms
 
             for (int i = 0; i < SessionManager.Instance.DatabaseInstance.ProductTables.Count(); i++)
             {
-                var temp = SessionManager.Instance.DatabaseInstance.ShopDatabase.SelectAllOneValue(SessionManager.Instance.DatabaseInstance.ProductTables[i], "SerialModel");
+                var temp = SessionManager.Instance.DatabaseInstance.ShopDatabase.SelectAllOneValue(
+                    SessionManager.Instance.DatabaseInstance.ProductTables[i],
+                    "SerialModel"
+                );
                 ProductSerialNames.AddRange(temp);
                 for (int j = 0; j < ProductSerialNames.Count(); j++)
                 {
-                    if (SessionManager.Instance.DatabaseInstance.ShopDatabase.CountWhere(SessionManager.Instance.DatabaseInstance.ProductTables[i], "SerialModel = '" + ProductSerialNames[j] + "'") == 1)
+                    if (
+                        SessionManager.Instance.DatabaseInstance.ShopDatabase.CountWhere(
+                            SessionManager.Instance.DatabaseInstance.ProductTables[i],
+                            "SerialModel = '" + ProductSerialNames[j] + "'"
+                        ) == 1
+                    )
                     {
-                        var item = SessionManager.Instance.DatabaseInstance.ProductDB.SelectProduct(SessionManager.Instance.DatabaseInstance.ProductTables[i], ProductSerialNames[j]);
+                        var item = SessionManager.Instance.DatabaseInstance.ProductDB.SelectProduct(
+                            SessionManager.Instance.DatabaseInstance.ProductTables[i],
+                            ProductSerialNames[j]
+                        );
                         ImageList.Images.Add(item.Model, item.Image);
                         ProductView.Items.Add(item.Name, internalCounter);
                         internalCounter++;
                     }
-
                 }
             }
 
@@ -87,10 +98,12 @@ namespace OOP5.source.GUI.Forms
 
         private void Store_Closing(object sender, EventArgs e)
         {
-            for (int i = 0; i < SessionManager.Instance.openForms.Count; i++)
-            {
-                SessionManager.Instance.openForms[SessionManager.Instance.openForms.Count - 1 - i].Close();
-            }
+            SessionManager.Instance.Shutdown();
+
+            // for (int i = 0; i < SessionManager.Instance.openForms.Count; i++)
+            // {
+            //     SessionManager.Instance.openForms[SessionManager.Instance.openForms.Count - 1 - i].Close();
+            // }
         }
 
         private void ProductView_SelectedIndexChanged(object sender, EventArgs e)
@@ -104,6 +117,18 @@ namespace OOP5.source.GUI.Forms
             var Form = (ProductView)SessionManager.Instance.openForms[7];
             Form.SerialModelSelected = ProductSerialNames[ProductView.FocusedItem.Index];
             Form.ReloadData();
+            if (SessionManager.Instance.currentUser != null)
+            {
+                SessionManager.Instance.ClientHistory.Log(
+                    SessionManager.Instance.currentUser.Username
+                        + " VIEWED PRODUCT ---> "
+                        + Form.SerialModelSelected
+                );
+            }
+            else
+            {
+                // SessionManager.Instance.ClientHistory.Log("AN ANONYMOUS USER VIEWED PRODUCT ---> " + Form.SerialModelSelected);
+            }
             SessionManager.Instance.openForms[7].Show();
         }
 

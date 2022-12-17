@@ -7,9 +7,7 @@ using System.Threading.Tasks;
 namespace OOP5.source.Core
 {
     using System.Text.Json;
-    using System.Text.Json.Serialization;
     using System.IO;
-    using static System.Windows.Forms.Design.AxImporter;
 
     public class Config
     {
@@ -17,7 +15,11 @@ namespace OOP5.source.Core
         private const string FileName = "cfg.json";
         public Exception EXCPT = null;
         public string DBEXCPT = null;
-        private JsonSerializerOptions JsonOptions = new JsonSerializerOptions { WriteIndented = true };
+        private JsonSerializerOptions JsonOptions = new JsonSerializerOptions
+        {
+            WriteIndented = true
+        };
+
         public Config()
         {
             try
@@ -45,11 +47,13 @@ namespace OOP5.source.Core
                 EXCPT = e;
             }
         }
+
         public bool DatabaseFound
         {
             get { return DatabaseGenerated; }
             set { DatabaseGenerated = value; }
         }
+
         public void ChangeDatabase(bool value)
         {
             DatabaseGenerated = value;

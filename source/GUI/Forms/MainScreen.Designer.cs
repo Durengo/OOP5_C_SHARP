@@ -118,6 +118,7 @@
             this.Text = "MainScreen";
             this.ResumeLayout(false);
             this.PerformLayout();
+            this.Disposed += new System.EventHandler(this.MainScreen_Closing);
 
         }
 

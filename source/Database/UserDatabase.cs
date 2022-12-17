@@ -14,6 +14,7 @@ namespace OOP5.source.Database
     public class UserDatabase
     {
         public int UserCount = 0;
+
         public void Generate()
         {
             if (!SessionManager.Instance.SessionConfiguration.DatabaseFound)
@@ -27,36 +28,66 @@ namespace OOP5.source.Database
             // RemoverUser("seb");
             // ModifyUserValue("test", "Username = 'test2'");
         }
-        public void AddUser(string username, string password, string userImage, string name, string surname, DateOnly birthday)
+
+        public void AddUser(
+            string username,
+            string password,
+            string userImage,
+            string name,
+            string surname,
+            DateOnly birthday
+        )
         {
             var db = SessionManager.Instance.DatabaseInstance.ShopDatabase;
             db.InsertItem(
                 "Users",
                 "UserType, Username, Password, UserImage, Name, Surname, DateOfBirth",
-                "'Registered', '" +
-                username + "', '" +
-                password + "', '" +
-                Base64.ConvertAndGetImageAsString(userImage) +
-                "', '" + name +
-                "', '" + surname +
-                "', '" + birthday.ToString() + "'");
+                "'Registered', '"
+                    + username
+                    + "', '"
+                    + password
+                    + "', '"
+                    + Base64.ConvertAndGetImageAsString(userImage)
+                    + "', '"
+                    + name
+                    + "', '"
+                    + surname
+                    + "', '"
+                    + birthday.ToString()
+                    + "'"
+            );
             UpdateUserCount();
         }
-        public void AddUser(string username, string password, string name, string surname, DateOnly birthday)
+
+        public void AddUser(
+            string username,
+            string password,
+            string name,
+            string surname,
+            DateOnly birthday
+        )
         {
             var db = SessionManager.Instance.DatabaseInstance.ShopDatabase;
             db.InsertItem(
                 "Users",
                 "UserType, Username, Password, UserImage, Name, Surname, DateOfBirth",
-                "'Registered', '" +
-                username + "', '" +
-                password + "', '" +
-                "'NULL'" +
-                "', '" + name +
-                "', '" + surname +
-                "', '" + birthday.ToString() + "'");
+                "'Registered', '"
+                    + username
+                    + "', '"
+                    + password
+                    + "', '"
+                    + "'NULL'"
+                    + "', '"
+                    + name
+                    + "', '"
+                    + surname
+                    + "', '"
+                    + birthday.ToString()
+                    + "'"
+            );
             UpdateUserCount();
         }
+
         public void RemoverUser(string username)
         {
             // TODO: REMOVE OTHER RECORDS THAT BELONG TO THIS USER!
@@ -65,76 +96,155 @@ namespace OOP5.source.Database
             db.DeleteWhere("Users", "Username", username);
             UpdateUserCount();
         }
+
         public void ModifyUserValue(string username, string values)
         {
             var db = SessionManager.Instance.DatabaseInstance.ShopDatabase;
             db.UpdateItem("Users", values, "Username = '" + username + "'");
         }
+
         public User SelectUser(string username)
         {
             var db = SessionManager.Instance.DatabaseInstance.ShopDatabase;
-            List<string> item = db.SelectItem("Users", "UserType, Username, Password, UserImage, Name, Surname, DateOfBirth", "Username = '" + username + "'");
+            List<string> item = db.SelectItem(
+                "Users",
+                "UserType, Username, Password, UserImage, Name, Surname, DateOfBirth",
+                "Username = '" + username + "'"
+            );
             var date = DateTime.Parse(item[6]);
             User selected;
             if (item[3] == "NULL")
             {
                 if (item[0] == "Registered")
                 {
-                    selected = new Registered(item[1], item[2], item[4], item[5], new DateOnly(date.Year, date.Month, date.Day));
+                    selected = new Registered(
+                        item[1],
+                        item[2],
+                        item[4],
+                        item[5],
+                        new DateOnly(date.Year, date.Month, date.Day)
+                    );
+                }
+                else if (item[0] == "Financer")
+                {
+                    selected = new Financer(
+                        item[1],
+                        item[2],
+                        item[4],
+                        item[5],
+                        new DateOnly(date.Year, date.Month, date.Day)
+                    );
                 }
                 else
                 {
-                    selected = new Administrator(item[1], item[2], item[4], item[5], new DateOnly(date.Year, date.Month, date.Day));
+                    selected = new Administrator(
+                        item[1],
+                        item[2],
+                        item[4],
+                        item[5],
+                        new DateOnly(date.Year, date.Month, date.Day)
+                    );
                 }
             }
             else
             {
                 if (item[0] == "Registered")
                 {
-                    selected = new Registered(item[1], item[2], new Bitmap(Base64.Base64ToImage(item[3])), item[4], item[5], new DateOnly(date.Year, date.Month, date.Day));
+                    selected = new Registered(
+                        item[1],
+                        item[2],
+                        new Bitmap(Base64.Base64ToImage(item[3])),
+                        item[4],
+                        item[5],
+                        new DateOnly(date.Year, date.Month, date.Day)
+                    );
+                }
+                else if (item[0] == "Financer")
+                {
+                    selected = new Financer(
+                        item[1],
+                        item[2],
+                        new Bitmap(Base64.Base64ToImage(item[3])),
+                        item[4],
+                        item[5],
+                        new DateOnly(date.Year, date.Month, date.Day)
+                    );
                 }
                 else
                 {
-                    selected = new Administrator(item[1], item[2], new Bitmap(Base64.Base64ToImage(item[3])), item[4], item[5], new DateOnly(date.Year, date.Month, date.Day));
+                    selected = new Administrator(
+                        item[1],
+                        item[2],
+                        new Bitmap(Base64.Base64ToImage(item[3])),
+                        item[4],
+                        item[5],
+                        new DateOnly(date.Year, date.Month, date.Day)
+                    );
                 }
             }
             return selected;
         }
+
         public void UpdateUserCount()
         {
             UserCount = SessionManager.Instance.DatabaseInstance.ShopDatabase.Count("Users");
         }
+
         private void GenerateUsersTable()
         {
-            SessionManager.Instance.DatabaseInstance.ShopDatabase.CreateTable("Users",
+            SessionManager.Instance.DatabaseInstance.ShopDatabase.CreateTable(
+                "Users",
                 @"UserType TYPE,
                 Username TEXT,
                 Password TEXT,
                 UserImage TEXT,
                 Name TEXT,
                 Surname TEXT,
-                DateOfBirth DATE");
+                DateOfBirth DATE"
+            );
         }
+
         private void GenerateUsers()
         {
             var db = SessionManager.Instance.DatabaseInstance.ShopDatabase;
             db.InsertItem(
-                "Users", "UserType, Username, Password, UserImage, Name, Surname, DateOfBirth",
-                "'Registered', 'Dur', 'Dur', '" +
-                Base64.ConvertAndGetImageAsString("data/images/avatar1.png") +
-                "', 'Seb', 'Ter', '2000-03-23'");
+                "Users",
+                "UserType, Username, Password, UserImage, Name, Surname, DateOfBirth",
+                "'Registered', 'Dur', 'Dur', '"
+                    + Base64.ConvertAndGetImageAsString("data/images/avatar1.png")
+                    + "', 'Seb', 'Ter', '2000-03-23'"
+            );
             db.InsertItem(
-                "Users", "UserType, Username, Password, UserImage, Name, Surname, DateOfBirth",
-                "'Registered', 'test', 'test', '" +
-                Base64.ConvertAndGetImageAsString("data/images/avatar2.jpg") +
-                "', 'Testname', 'Testsurname', '2000-03-23'");
+                "Users",
+                "UserType, Username, Password, UserImage, Name, Surname, DateOfBirth",
+                "'Registered', 'test', 'test', '"
+                    + Base64.ConvertAndGetImageAsString("data/images/avatar2.jpg")
+                    + "', 'Testname', 'Testsurname', '2000-03-23'"
+            );
 
-            string dt = new DateOnly(DateTime.Today.Year, DateTime.Today.Month, DateTime.Today.Day).ToString();
+            string dt = new DateOnly(
+                DateTime.Today.Year,
+                DateTime.Today.Month,
+                DateTime.Today.Day
+            ).ToString();
             db.InsertItem(
-                "Users", "UserType, Username, Password, UserImage, Name, Surname, DateOfBirth",
-                "'Administrator', 'admin', 'admin', '" +
-                Base64.ConvertAndGetImageAsString("data/images/avatar3.jpg") + "', 'Admin', 'Admin', '"
-                + dt + "'");
+                "Users",
+                "UserType, Username, Password, UserImage, Name, Surname, DateOfBirth",
+                "'Administrator', 'admin', 'admin', '"
+                    + Base64.ConvertAndGetImageAsString("data/images/avatar3.jpg")
+                    + "', 'Admin', 'Admin', '"
+                    + dt
+                    + "'"
+            );
+            db.InsertItem(
+                "Users",
+                "UserType, Username, Password, UserImage, Name, Surname, DateOfBirth",
+                "'Financer', 'fin', 'fin', '"
+                    + Base64.ConvertAndGetImageAsString("data/images/avatar3.jpg")
+                    + "', 'Finan', 'Finan', '"
+                    + dt
+                    + "'"
+            );
         }
     }
 }

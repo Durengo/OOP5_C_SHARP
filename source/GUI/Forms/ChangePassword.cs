@@ -29,10 +29,18 @@ namespace OOP5.source.GUI.Forms
             err3.Hide();
             if (repeatPass.Text == newPass.Text)
             {
-                if (SessionManager.Instance.currentUser.ChangePassword(currentPass.Text, newPass.Text))
+                if (
+                    SessionManager.Instance.currentUser.ChangePassword(
+                        currentPass.Text,
+                        newPass.Text
+                    )
+                )
                 {
                     var db = SessionManager.Instance.DatabaseInstance.UserDB;
-                    db.ModifyUserValue(SessionManager.Instance.currentUser.Username, "Password = '" + newPass.Text + "'");
+                    db.ModifyUserValue(
+                        SessionManager.Instance.currentUser.Username,
+                        "Password = '" + newPass.Text + "'"
+                    );
                     for (int i = 0; i < SessionManager.Instance.openForms.Count; i++)
                     {
                         SessionManager.Instance.openForms[i].Hide();

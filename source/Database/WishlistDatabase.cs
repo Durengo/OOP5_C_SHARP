@@ -8,6 +8,7 @@ namespace OOP5.source.Database
 {
     using OOP5.source.Core;
     using OOP5.source.Shop;
+
     public class WishlistDatabase
     {
         public void Generate()
@@ -18,13 +19,17 @@ namespace OOP5.source.Database
                 GenerateWishlists();
             }
         }
+
         public void GenerateWishlistTable()
         {
-            SessionManager.Instance.DatabaseInstance.ShopDatabase.CreateTable("Wishlist",
+            SessionManager.Instance.DatabaseInstance.ShopDatabase.CreateTable(
+                "Wishlist",
                 @"Username TEXT,
                 ProductType TYPE,
-                ProductSerialModel TEXT");
+                ProductSerialModel TEXT"
+            );
         }
+
         public void AddWishlistItem(string username, string type, string productSerialModel)
         {
             if (!SessionManager.Instance.DatabaseInstance.ProductTables.Contains(type))
@@ -36,29 +41,47 @@ namespace OOP5.source.Database
             db.InsertItem(
                 "Wishlist",
                 "Username, ProductType, ProductSerialModel",
-                "'" + username + "', '" +
-                type + "', '" +
-                productSerialModel + "'");
-            SessionManager.Instance.DatabaseInstance.WishlistArchiveDB.AddWishlistArchiveItem(username, type, productSerialModel);
+                "'" + username + "', '" + type + "', '" + productSerialModel + "'"
+            );
+            SessionManager.Instance.DatabaseInstance.WishlistArchiveDB.AddWishlistArchiveItem(
+                username,
+                type,
+                productSerialModel
+            );
         }
+
         public void RemoveWishlistItem(string username, string productSerialModel)
         {
             var db = SessionManager.Instance.DatabaseInstance.ShopDatabase;
-            db.DeleteMultipleWhere("Wishlist", "Username = '" + username + "' AND ProductSerialModel = '" + productSerialModel + "'");
+            db.DeleteMultipleWhere(
+                "Wishlist",
+                "Username = '"
+                    + username
+                    + "' AND ProductSerialModel = '"
+                    + productSerialModel
+                    + "'"
+            );
         }
+
         public void RemoveAllWishlistItemsWithSerialModel(string productSerialModel)
         {
             var db = SessionManager.Instance.DatabaseInstance.ShopDatabase;
             db.DeleteMultipleWhere("Wishlist", "ProductSerialModel = '" + productSerialModel + "'");
         }
+
         public WishlistItem SelectWishlistItem(string username, string serialModel)
         {
             var db = SessionManager.Instance.DatabaseInstance.ShopDatabase;
-            List<string> item = db.SelectItem("Wishlist", "Username, ProductType, ProductSerialModel", "Username = '" + username + "' AND ProductSerialModel = '" + serialModel + "'");
+            List<string> item = db.SelectItem(
+                "Wishlist",
+                "Username, ProductType, ProductSerialModel",
+                "Username = '" + username + "' AND ProductSerialModel = '" + serialModel + "'"
+            );
             WishlistItem selected;
             selected = new WishlistItem(item[0], item[1], item[2]);
             return selected;
         }
+
         public void GenerateWishlists()
         {
             AddWishlistItem("Dur", "ProductGPU", "MSIGTX970IKMG44");

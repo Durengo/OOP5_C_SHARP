@@ -17,10 +17,12 @@ namespace OOP5.source.GUI.Forms
         private string ImageFullPath = "";
         private bool[] InternalConditions = new bool[6];
         private bool[] DBconditions = new bool[2];
+
         public CreateProduct()
         {
             InitializeComponent();
         }
+
         public void UpdateData()
         {
             ImageFullPath = "";
@@ -58,18 +60,22 @@ namespace OOP5.source.GUI.Forms
                 CategoryBox.Items.Add(SessionManager.Instance.DatabaseInstance.ProductTables[i]);
             }
         }
+
         private void BackButton_Click(object sender, EventArgs e)
         {
             SessionManager.Instance.openForms[10].Hide();
             //ErrMsg.Hide();
             SessionManager.Instance.openForms[4].Show();
         }
+
         private void CreateProduct_Closing(object sender, EventArgs e)
         {
-            for (int i = 0; i < SessionManager.Instance.openForms.Count; i++)
-            {
-                SessionManager.Instance.openForms[SessionManager.Instance.openForms.Count - 1 - i].Close();
-            }
+            SessionManager.Instance.Shutdown();
+
+            // for (int i = 0; i < SessionManager.Instance.openForms.Count; i++)
+            // {
+            //     SessionManager.Instance.openForms[SessionManager.Instance.openForms.Count - 1 - i].Close();
+            // }
         }
 
         private void UploadPictureButton_Click(object sender, EventArgs e)
@@ -101,9 +107,17 @@ namespace OOP5.source.GUI.Forms
             {
                 while (DBconditions[0] == false)
                 {
-                    for (int i = 0; i < SessionManager.Instance.DatabaseInstance.ProductTables.Count(); i++)
+                    for (
+                        int i = 0;
+                        i < SessionManager.Instance.DatabaseInstance.ProductTables.Count();
+                        i++
+                    )
                     {
-                        var list = SessionManager.Instance.DatabaseInstance.ShopDatabase.SelectAllOneValue(SessionManager.Instance.DatabaseInstance.ProductTables[i], "SerialModel");
+                        var list =
+                            SessionManager.Instance.DatabaseInstance.ShopDatabase.SelectAllOneValue(
+                                SessionManager.Instance.DatabaseInstance.ProductTables[i],
+                                "SerialModel"
+                            );
                         for (int j = 0; j < list.Count(); j++)
                         {
                             if (list.Contains(SerialModelBox.Text))
@@ -153,10 +167,16 @@ namespace OOP5.source.GUI.Forms
                 ErrBox6.Show();
             }
 
-            if (InternalConditions[0] || InternalConditions[1] ||
-                InternalConditions[2] || InternalConditions[3] ||
-                InternalConditions[4] || InternalConditions[5] ||
-                DBconditions[0] || DBconditions[1])
+            if (
+                InternalConditions[0]
+                || InternalConditions[1]
+                || InternalConditions[2]
+                || InternalConditions[3]
+                || InternalConditions[4]
+                || InternalConditions[5]
+                || DBconditions[0]
+                || DBconditions[1]
+            )
             {
                 return true;
             }
@@ -184,8 +204,14 @@ namespace OOP5.source.GUI.Forms
             ErrBox6.Hide();
             if (!ErrorCheck())
             {
-                SessionManager.Instance.DatabaseInstance.ProductDB.AddProduct(CategoryBox.Text, SerialModelBox.Text, ProductNameBox.Text,
-                            ProductDescriptionBox.Text, float.Parse(ProductPriceBox.Text), ImageFullPath);
+                SessionManager.Instance.DatabaseInstance.ProductDB.AddProduct(
+                    CategoryBox.Text,
+                    SerialModelBox.Text,
+                    ProductNameBox.Text,
+                    ProductDescriptionBox.Text,
+                    float.Parse(ProductPriceBox.Text),
+                    ImageFullPath
+                );
                 MessageBox.Show("Created New Product And Added To Database!");
                 UpdateData();
             }

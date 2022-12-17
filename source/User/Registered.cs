@@ -19,6 +19,7 @@ namespace OOP5.source.User
         {
             this.SetUserAccountType = AccountType.REGISTERED;
         }
+
         public Registered(
             string username,
             string password,
@@ -29,6 +30,7 @@ namespace OOP5.source.User
         {
             this.SetUserAccountType = AccountType.REGISTERED;
         }
+
         public Registered(
             string username,
             string password,

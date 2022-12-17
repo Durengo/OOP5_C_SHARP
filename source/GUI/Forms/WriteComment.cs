@@ -63,7 +63,7 @@ namespace OOP5.source.GUI.Forms
 
         private void commentBox_TextChanged(object sender, EventArgs e)
         {
-            if(commentBox.Text != "")
+            if (commentBox.Text != "")
             {
                 ConfirmButton.Enabled = true;
             }

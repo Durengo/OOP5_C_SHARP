@@ -13,6 +13,7 @@ namespace OOP5.source.Shop
         private string CommentProductModel;
         private string CommentText;
         private DateTime CommentDate;
+
         public Comment(string username, string type, string model, string comment, DateTime date)
         {
             CommentUsername = username;
@@ -21,6 +22,7 @@ namespace OOP5.source.Shop
             CommentText = comment;
             CommentDate = date;
         }
+
         public string Username
         {
             get { return CommentUsername; }

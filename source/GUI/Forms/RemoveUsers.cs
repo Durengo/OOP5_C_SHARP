@@ -25,8 +25,16 @@ namespace OOP5.source.GUI.Forms
         public void UpdateUserList()
         {
             userList.Items.Clear();
-            List<string> usernames = SessionManager.Instance.DatabaseInstance.ShopDatabase.SelectAllOneValue("Users", "Username");
-            for (int i = 0; i < SessionManager.Instance.DatabaseInstance.ShopDatabase.Count("Users"); i++)
+            List<string> usernames =
+                SessionManager.Instance.DatabaseInstance.ShopDatabase.SelectAllOneValue(
+                    "Users",
+                    "Username"
+                );
+            for (
+                int i = 0;
+                i < SessionManager.Instance.DatabaseInstance.ShopDatabase.Count("Users");
+                i++
+            )
             {
                 //List<string> item = SessionManager.Instance.DatabaseInstance.ShopDatabase.SelectItem("Users", "ID, Username, Name, Surname, DateOfBirth", "ID = '" + i + "'");
                 var item = SessionManager.Instance.DatabaseInstance.UserDB.SelectUser(usernames[i]);

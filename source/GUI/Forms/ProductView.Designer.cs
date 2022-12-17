@@ -40,6 +40,9 @@
             this.Comments = new System.Windows.Forms.ListView();
             this.writeCommentButton1 = new System.Windows.Forms.Button();
             this.deleteCommentButton1 = new System.Windows.Forms.Button();
+            this.AddToCartButton = new System.Windows.Forms.Button();
+            this.CheckoutButton = new System.Windows.Forms.Button();
+            this.CheckOutTotalPrice = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.ProductImage)).BeginInit();
             this.SuspendLayout();
             // 
@@ -179,11 +182,52 @@
             this.deleteCommentButton1.UseVisualStyleBackColor = true;
             this.deleteCommentButton1.Click += new System.EventHandler(this.deleteCommentButton1_Click);
             // 
+            // AddToCartButton
+            // 
+            this.AddToCartButton.AutoSize = true;
+            this.AddToCartButton.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.AddToCartButton.BackColor = System.Drawing.Color.DarkSeaGreen;
+            this.AddToCartButton.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.AddToCartButton.Location = new System.Drawing.Point(668, 37);
+            this.AddToCartButton.Name = "AddToCartButton";
+            this.AddToCartButton.Size = new System.Drawing.Size(88, 27);
+            this.AddToCartButton.TabIndex = 29;
+            this.AddToCartButton.Text = "Add To Cart";
+            this.AddToCartButton.UseVisualStyleBackColor = false;
+            this.AddToCartButton.Click += new System.EventHandler(this.AddToCartButton_Click);
+            // 
+            // CheckoutButton
+            // 
+            this.CheckoutButton.AutoSize = true;
+            this.CheckoutButton.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.CheckoutButton.BackColor = System.Drawing.Color.Cornsilk;
+            this.CheckoutButton.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.CheckoutButton.Location = new System.Drawing.Point(685, 10);
+            this.CheckoutButton.Name = "CheckoutButton";
+            this.CheckoutButton.Size = new System.Drawing.Size(71, 27);
+            this.CheckoutButton.TabIndex = 30;
+            this.CheckoutButton.Text = "Checkout";
+            this.CheckoutButton.UseVisualStyleBackColor = false;
+            this.CheckoutButton.Click += new System.EventHandler(this.CheckoutButton_Click);
+            // 
+            // CheckOutTotalPrice
+            // 
+            this.CheckOutTotalPrice.AutoSize = true;
+            this.CheckOutTotalPrice.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.CheckOutTotalPrice.Location = new System.Drawing.Point(630, 15);
+            this.CheckOutTotalPrice.Name = "CheckOutTotalPrice";
+            this.CheckOutTotalPrice.Size = new System.Drawing.Size(49, 17);
+            this.CheckOutTotalPrice.TabIndex = 31;
+            this.CheckOutTotalPrice.Text = "ChkTTL";
+            // 
             // ProductView
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(768, 461);
+            this.Controls.Add(this.CheckOutTotalPrice);
+            this.Controls.Add(this.CheckoutButton);
+            this.Controls.Add(this.AddToCartButton);
             this.Controls.Add(this.deleteCommentButton1);
             this.Controls.Add(this.writeCommentButton1);
             this.Controls.Add(this.Comments);
@@ -220,5 +264,8 @@
         private ListView Comments;
         private Button writeCommentButton1;
         private Button deleteCommentButton1;
+        private Button AddToCartButton;
+        private Button CheckoutButton;
+        private Label CheckOutTotalPrice;
     }
 }

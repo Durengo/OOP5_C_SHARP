@@ -42,10 +42,18 @@ namespace OOP5.source.GUI.Forms
             //11
             SessionManager.Instance.openForms.Add(new RemoveProduct());
             //12
+            SessionManager.Instance.openForms.Add(new ShoppingHistory());
+            //13
+            SessionManager.Instance.openForms.Add(new ShoppingCart());
+            //14
             // SessionManager.Instance.openForms.Add(new DebugMenu());
-            // SessionManager.Instance.openForms[12].Show();
+            // SessionManager.Instance.openForms[14].Show();
 
             SessionManager.Instance.DatabaseInstance.Generate();
+
+            //var Form = (ShoppingCart)SessionManager.Instance.openForms[13];
+            //Form.ReloadData();
+            //SessionManager.Instance.openForms[13].Show();
         }
 
         private void loginButton1_Click(object sender, EventArgs e)
@@ -62,7 +70,7 @@ namespace OOP5.source.GUI.Forms
 
         private void exitButton1_Click(object sender, EventArgs e)
         {
-            Close();
+            SessionManager.Instance.Shutdown();
         }
 
         private void shopButton1_Click(object sender, EventArgs e)
@@ -71,6 +79,11 @@ namespace OOP5.source.GUI.Forms
             var Form = (Store)SessionManager.Instance.openForms[6];
             Form.ReloadData();
             SessionManager.Instance.openForms[6].Show();
+        }
+
+        private void MainScreen_Closing(object sender, EventArgs e)
+        {
+            SessionManager.Instance.Shutdown();
         }
     }
 }

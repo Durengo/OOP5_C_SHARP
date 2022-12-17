@@ -39,18 +39,19 @@
             this.CreateCategoryButton = new System.Windows.Forms.Button();
             this.CreateProductButton = new System.Windows.Forms.Button();
             this.RemoveProductButton = new System.Windows.Forms.Button();
+            this.ViewShoppingHistory = new System.Windows.Forms.Button();
+            this.ShoppingCart = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // label1
             // 
-            this.label1.Dock = System.Windows.Forms.DockStyle.Top;
             this.label1.Font = new System.Drawing.Font("Segoe UI", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.label1.Location = new System.Drawing.Point(0, 0);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(784, 34);
+            this.label1.Size = new System.Drawing.Size(272, 34);
             this.label1.TabIndex = 0;
             this.label1.Text = "Welcome to PC E-Shop";
-            this.label1.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
+            this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // viewAccountButton1
             // 
@@ -110,15 +111,14 @@
             // 
             // usernameWelcomeLabel
             // 
-            this.usernameWelcomeLabel.Dock = System.Windows.Forms.DockStyle.Top;
             this.usernameWelcomeLabel.Font = new System.Drawing.Font("Segoe UI", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.usernameWelcomeLabel.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.usernameWelcomeLabel.Location = new System.Drawing.Point(0, 34);
+            this.usernameWelcomeLabel.Location = new System.Drawing.Point(278, 0);
             this.usernameWelcomeLabel.Name = "usernameWelcomeLabel";
-            this.usernameWelcomeLabel.Size = new System.Drawing.Size(784, 34);
+            this.usernameWelcomeLabel.Size = new System.Drawing.Size(506, 34);
             this.usernameWelcomeLabel.TabIndex = 5;
             this.usernameWelcomeLabel.Text = "Username";
-            this.usernameWelcomeLabel.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
+            this.usernameWelcomeLabel.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
             // deleteUser
             // 
@@ -127,7 +127,7 @@
             this.deleteUser.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.deleteUser.Font = new System.Drawing.Font("Segoe UI", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.deleteUser.ForeColor = System.Drawing.Color.Red;
-            this.deleteUser.Location = new System.Drawing.Point(0, 279);
+            this.deleteUser.Location = new System.Drawing.Point(0, 185);
             this.deleteUser.Name = "deleteUser";
             this.deleteUser.Size = new System.Drawing.Size(784, 47);
             this.deleteUser.TabIndex = 66;
@@ -156,7 +156,7 @@
             this.CreateCategoryButton.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.CreateCategoryButton.Font = new System.Drawing.Font("Segoe UI", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.CreateCategoryButton.ForeColor = System.Drawing.Color.Red;
-            this.CreateCategoryButton.Location = new System.Drawing.Point(0, 232);
+            this.CreateCategoryButton.Location = new System.Drawing.Point(0, 138);
             this.CreateCategoryButton.Name = "CreateCategoryButton";
             this.CreateCategoryButton.Size = new System.Drawing.Size(784, 47);
             this.CreateCategoryButton.TabIndex = 69;
@@ -171,7 +171,7 @@
             this.CreateProductButton.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.CreateProductButton.Font = new System.Drawing.Font("Segoe UI", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.CreateProductButton.ForeColor = System.Drawing.Color.Red;
-            this.CreateProductButton.Location = new System.Drawing.Point(0, 185);
+            this.CreateProductButton.Location = new System.Drawing.Point(0, 91);
             this.CreateProductButton.Name = "CreateProductButton";
             this.CreateProductButton.Size = new System.Drawing.Size(784, 47);
             this.CreateProductButton.TabIndex = 70;
@@ -186,13 +186,43 @@
             this.RemoveProductButton.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.RemoveProductButton.Font = new System.Drawing.Font("Segoe UI", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.RemoveProductButton.ForeColor = System.Drawing.Color.Red;
-            this.RemoveProductButton.Location = new System.Drawing.Point(0, 138);
+            this.RemoveProductButton.Location = new System.Drawing.Point(0, 44);
             this.RemoveProductButton.Name = "RemoveProductButton";
             this.RemoveProductButton.Size = new System.Drawing.Size(784, 47);
             this.RemoveProductButton.TabIndex = 71;
             this.RemoveProductButton.Text = "Remove Product";
             this.RemoveProductButton.UseVisualStyleBackColor = true;
             this.RemoveProductButton.Click += new System.EventHandler(this.RemoveProductButton_Click);
+            // 
+            // ViewShoppingHistory
+            // 
+            this.ViewShoppingHistory.AutoSize = true;
+            this.ViewShoppingHistory.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.ViewShoppingHistory.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.ViewShoppingHistory.Font = new System.Drawing.Font("Segoe UI", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.ViewShoppingHistory.ForeColor = System.Drawing.SystemColors.ControlText;
+            this.ViewShoppingHistory.Location = new System.Drawing.Point(0, 279);
+            this.ViewShoppingHistory.Name = "ViewShoppingHistory";
+            this.ViewShoppingHistory.Size = new System.Drawing.Size(784, 47);
+            this.ViewShoppingHistory.TabIndex = 72;
+            this.ViewShoppingHistory.Text = "Shopping History";
+            this.ViewShoppingHistory.UseVisualStyleBackColor = true;
+            this.ViewShoppingHistory.Click += new System.EventHandler(this.ViewShoppingHistory_Click);
+            // 
+            // ShoppingCart
+            // 
+            this.ShoppingCart.AutoSize = true;
+            this.ShoppingCart.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.ShoppingCart.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.ShoppingCart.Font = new System.Drawing.Font("Segoe UI", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.ShoppingCart.ForeColor = System.Drawing.SystemColors.ControlText;
+            this.ShoppingCart.Location = new System.Drawing.Point(0, 232);
+            this.ShoppingCart.Name = "ShoppingCart";
+            this.ShoppingCart.Size = new System.Drawing.Size(784, 47);
+            this.ShoppingCart.TabIndex = 73;
+            this.ShoppingCart.Text = "Shopping Cart";
+            this.ShoppingCart.UseVisualStyleBackColor = true;
+            this.ShoppingCart.Click += new System.EventHandler(this.ShoppingCart_Click);
             // 
             // PostLogin
             // 
@@ -203,6 +233,8 @@
             this.Controls.Add(this.CreateProductButton);
             this.Controls.Add(this.CreateCategoryButton);
             this.Controls.Add(this.deleteUser);
+            this.Controls.Add(this.ShoppingCart);
+            this.Controls.Add(this.ViewShoppingHistory);
             this.Controls.Add(this.wishlistButton1);
             this.Controls.Add(this.usernameWelcomeLabel);
             this.Controls.Add(this.shopButton1);
@@ -233,5 +265,7 @@
         private Button CreateCategoryButton;
         private Button CreateProductButton;
         private Button RemoveProductButton;
+        private Button ViewShoppingHistory;
+        private Button ShoppingCart;
     }
 }

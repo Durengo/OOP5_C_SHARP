@@ -9,6 +9,8 @@ namespace OOP5.source.Input
 
     public class InputValidation
     {
+        static Logger InputLogger = new Logger(new ConsoleLog());
+
         public static int GIBI(string input)
         {
             int converted;
@@ -21,19 +23,19 @@ namespace OOP5.source.Input
                 }
                 catch (ArgumentNullException e)
                 {
-                    Log.ERROR(e);
+                    InputLogger.Log(LogErrorLevel.ERROR, e);
                 }
                 catch (OverflowException e)
                 {
-                    Log.ERROR(e);
+                    InputLogger.Log(LogErrorLevel.ERROR, e);
                 }
                 catch (FormatException e)
                 {
-                    Log.ERROR(e);
+                    InputLogger.Log(LogErrorLevel.ERROR, e);
                 }
                 catch (Exception e)
                 {
-                    Log.ERROR(e);
+                    InputLogger.Log(LogErrorLevel.ERROR, e);
                 }
             }
         }
@@ -49,7 +51,8 @@ namespace OOP5.source.Input
                 }
                 else
                 {
-                    Log.ERROR(
+                    InputLogger.Log(
+                        LogErrorLevel.ERROR,
                         $"EXCEPTION! INPUT OUT OF RANGE: {converted} in [MIN]{min}-[MAX]{max}\nTRY AGAIN"
                     );
                 }
@@ -68,19 +71,19 @@ namespace OOP5.source.Input
                 }
                 catch (ArgumentNullException e)
                 {
-                    Log.ERROR(e);
+                    InputLogger.Log(LogErrorLevel.ERROR, e);
                 }
                 catch (OverflowException e)
                 {
-                    Log.ERROR(e);
+                    InputLogger.Log(LogErrorLevel.ERROR, e);
                 }
                 catch (FormatException e)
                 {
-                    Log.ERROR(e);
+                    InputLogger.Log(LogErrorLevel.ERROR, e);
                 }
                 catch (Exception e)
                 {
-                    Log.ERROR(e);
+                    InputLogger.Log(LogErrorLevel.ERROR, e);
                 }
             }
         }
@@ -96,7 +99,8 @@ namespace OOP5.source.Input
                 }
                 else
                 {
-                    Log.ERROR(
+                    InputLogger.Log(
+                        LogErrorLevel.ERROR,
                         $"EXCEPTION! INPUT OUT OF RANGE: {converted} in [MIN]{min}-[MAX]{max}\nTRY AGAIN"
                     );
                 }
@@ -115,19 +119,19 @@ namespace OOP5.source.Input
                 }
                 catch (ArgumentNullException e)
                 {
-                    Log.ERROR(e);
+                    InputLogger.Log(LogErrorLevel.ERROR, e);
                 }
                 catch (OverflowException e)
                 {
-                    Log.ERROR(e);
+                    InputLogger.Log(LogErrorLevel.ERROR, e);
                 }
                 catch (FormatException e)
                 {
-                    Log.ERROR(e);
+                    InputLogger.Log(LogErrorLevel.ERROR, e);
                 }
                 catch (Exception e)
                 {
-                    Log.ERROR(e);
+                    InputLogger.Log(LogErrorLevel.ERROR, e);
                 }
             }
         }
@@ -143,7 +147,8 @@ namespace OOP5.source.Input
                 }
                 else
                 {
-                    Log.ERROR(
+                    InputLogger.Log(
+                        LogErrorLevel.ERROR,
                         $"EXCEPTION! INPUT OUT OF RANGE: {converted} in [MIN]{min}-[MAX]{max}\nTRY AGAIN"
                     );
                 }

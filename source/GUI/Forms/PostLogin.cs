@@ -18,11 +18,13 @@ namespace OOP5.source.GUI.Forms
         {
             InitializeComponent();
         }
+
         public void UpdateData()
         {
             var user = SessionManager.Instance.currentUser;
             usernameWelcomeLabel.Text = user.Username;
             usernameWelcomeLabel.ForeColor = Color.Black;
+
             deleteUser.Enabled = false;
             deleteUser.Hide();
             CreateCategoryButton.Enabled = false;
@@ -31,6 +33,9 @@ namespace OOP5.source.GUI.Forms
             CreateProductButton.Hide();
             RemoveProductButton.Enabled = false;
             RemoveProductButton.Hide();
+
+            //ViewShoppingHistory.Enabled = false;
+            //ViewShoppingHistory.Hide();
             if (user.UserAccountType == User.AccountType.ADMINISTRATOR)
             {
                 usernameWelcomeLabel.ForeColor = Color.Red;
@@ -43,7 +48,13 @@ namespace OOP5.source.GUI.Forms
                 RemoveProductButton.Enabled = true;
                 RemoveProductButton.Show();
             }
+            // if (user.UserAccountType == User.AccountType.FINANCER)
+            // {
+            //     ViewShoppingHistory.Enabled = true;
+            //     ViewShoppingHistory.Show();
+            // }
         }
+
         private void viewAccountButton1_Click(object sender, EventArgs e)
         {
             SessionManager.Instance.openForms[4].Hide();
@@ -51,11 +62,13 @@ namespace OOP5.source.GUI.Forms
             Form.UpdateData();
             SessionManager.Instance.openForms[3].Show();
         }
+
         private void exitButton1_Click(object sender, EventArgs e)
         {
             SessionManager.Instance.Logout();
-            Close();
+            SessionManager.Instance.Shutdown();
         }
+
         private void logoutButton1_Click_1(object sender, EventArgs e)
         {
             SessionManager.Instance.openForms[4].Hide();
@@ -64,6 +77,7 @@ namespace OOP5.source.GUI.Forms
             SessionManager.Instance.Logout();
             SessionManager.Instance.openForms[0].Show();
         }
+
         private void shopButton1_Click(object sender, EventArgs e)
         {
             SessionManager.Instance.openForms[4].Hide();
@@ -71,12 +85,10 @@ namespace OOP5.source.GUI.Forms
             Form.ReloadData();
             SessionManager.Instance.openForms[6].Show();
         }
+
         private void PostLogin_Closing(object sender, EventArgs e)
         {
-            for (int i = 0; i < SessionManager.Instance.openForms.Count; i++)
-            {
-                SessionManager.Instance.openForms[SessionManager.Instance.openForms.Count - 1 - i].Close();
-            }
+            SessionManager.Instance.Shutdown();
         }
 
         private void deleteUser_Click(object sender, EventArgs e)
@@ -94,10 +106,7 @@ namespace OOP5.source.GUI.Forms
             SessionManager.Instance.openForms[8].Show();
         }
 
-        private void commentHistoryButton1_Click(object sender, EventArgs e)
-        {
-
-        }
+        private void commentHistoryButton1_Click(object sender, EventArgs e) { }
 
         private void CreateCategoryButton_Click(object sender, EventArgs e)
         {
@@ -121,6 +130,22 @@ namespace OOP5.source.GUI.Forms
             var Form = (RemoveProduct)SessionManager.Instance.openForms[11];
             Form.UpdateData();
             SessionManager.Instance.openForms[11].Show();
+        }
+
+        private void ViewShoppingHistory_Click(object sender, EventArgs e)
+        {
+            SessionManager.Instance.openForms[4].Hide();
+            var Form = (ShoppingHistory)SessionManager.Instance.openForms[12];
+            Form.ReloadData();
+            SessionManager.Instance.openForms[12].Show();
+        }
+
+        private void ShoppingCart_Click(object sender, EventArgs e)
+        {
+            SessionManager.Instance.openForms[4].Hide();
+            var Form = (ShoppingCart)SessionManager.Instance.openForms[13];
+            Form.ReloadData();
+            SessionManager.Instance.openForms[13].Show();
         }
     }
 }

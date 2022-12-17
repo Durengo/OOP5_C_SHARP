@@ -11,27 +11,27 @@ using System.Threading.Tasks;
 // https://zetcode.com/csharp/sqlite/
 // https://www.devart.com/dotconnect/sqlite/docs/Devart.Data.SQLite~Devart.Data.SQLite.SQLiteDataReader.html
 
-//TODO: ADD BOOL SWITCH AND CONFIG FILE FOR CHECKING IF THE FILE ALREADY EXISTS AND THE APPROPRIATE TABLES ARE THERE.
-
 // NOT ABSTRACT IMPLEMENTATION.
 
 namespace OOP5.source.Database
 {
-    using System.Data;
     using System.Data.SQLite;
-    using System.Xml.Linq;
 
     public class Database
     {
         // master_sqlite db name
         private String DbName;
+
         // sqlite instance
         private SQLiteConnection Connection = null;
         private bool ConnectionStatus = false;
+
         // Debugging variable
         private String ConnectionSuccessText = "OK!";
+
         // Debugging variable
         private Exception ConnectionError = null;
+
         // Debugging variable
         private string SQLVersion = "";
 
@@ -54,6 +54,7 @@ namespace OOP5.source.Database
                 ConnectionError = e;
             }
         }
+
         ~Database()
         {
             // TODO: If(DeleteDatabase)
@@ -61,6 +62,7 @@ namespace OOP5.source.Database
             // System.Data.SQLite.SQLiteConnection.ClearAllPools();
             // File.Delete(DbName);
         }
+
         // Simple implementation of executing an sql statement
         public void ExecuteStatement(string stmt)
         {
@@ -78,19 +80,30 @@ namespace OOP5.source.Database
                 MessageBox.Show(ConnectionError.ToString());
             }
         }
+
         public void CreateTable(string tableName, string stmt)
         {
-            // TODO: Create function for if not exists and turn this one into create table
             string newStmt = "CREATE TABLE IF NOT EXISTS " + tableName + "(" + stmt + ");";
             //string newStmt = "CREATE TABLE " + DbName + "." + tableName + "(" + stmt + ");";
 
             ExecuteStatement(newStmt);
         }
+
         public void InsertItem(string tableName, string tableValues, string stmt)
         {
-            string newStmt = "INSERT INTO " + tableName + "(" + tableValues + ")" + " VALUES " + "(" + stmt + ");";
+            string newStmt =
+                "INSERT INTO "
+                + tableName
+                + "("
+                + tableValues
+                + ")"
+                + " VALUES "
+                + "("
+                + stmt
+                + ");";
             ExecuteStatement(newStmt);
         }
+
         // Selects a record (object) and returns a list of string. The amount of elements in the string depend on the 'tableValues' argument.
         public List<string> SelectItem(string tableName, string tableValues, string stmt)
         {
@@ -99,7 +112,8 @@ namespace OOP5.source.Database
             SQLiteDataReader reader;
             try
             {
-                cmd.CommandText = "SELECT " + tableValues + " FROM " + tableName + " WHERE " + stmt + ";";
+                cmd.CommandText =
+                    "SELECT " + tableValues + " FROM " + tableName + " WHERE " + stmt + ";";
                 OpenConnection();
 
                 reader = cmd.ExecuteReader();
@@ -123,6 +137,7 @@ namespace OOP5.source.Database
             }
             return selection;
         }
+
         // Selects a single variable from every record.
         public List<string> SelectAllOneValue(string tableName, string tableValue)
         {
@@ -155,6 +170,7 @@ namespace OOP5.source.Database
             }
             return selection;
         }
+
         // Selects a single variable from every record where a stmt equals to a specified value.
         public List<string> SelectAllOneValueWhere(string tableName, string tableValue, string stmt)
         {
@@ -163,7 +179,8 @@ namespace OOP5.source.Database
             SQLiteDataReader reader;
             try
             {
-                cmd.CommandText = "SELECT " + tableValue + " FROM " + tableName + " WHERE " + stmt + ";";
+                cmd.CommandText =
+                    "SELECT " + tableValue + " FROM " + tableName + " WHERE " + stmt + ";";
                 OpenConnection();
 
                 reader = cmd.ExecuteReader();
@@ -187,24 +204,75 @@ namespace OOP5.source.Database
             }
             return selection;
         }
+
+        public List<string> SelectAllOneValueWhereAndOrderBy(
+            string tableName,
+            string tableValue,
+            string stmt,
+            string orderBy
+        )
+        {
+            List<string> selection = new List<string>();
+            SQLiteCommand cmd = Connection.CreateCommand();
+            SQLiteDataReader reader;
+            try
+            {
+                cmd.CommandText =
+                    "SELECT "
+                    + tableValue
+                    + " FROM "
+                    + tableName
+                    + " WHERE "
+                    + stmt
+                    + " ORDER BY "
+                    + orderBy
+                    + ";";
+                OpenConnection();
+
+                reader = cmd.ExecuteReader();
+                while (reader.Read())
+                {
+                    string item = "";
+                    for (int i = 0; i < reader.FieldCount; i++)
+                    {
+                        item = reader.GetValue(i).ToString();
+
+                        selection.Add(item);
+                    }
+                }
+
+                CloseConnection();
+            }
+            catch (SQLiteException e)
+            {
+                ConnectionError = e;
+                MessageBox.Show(ConnectionError.ToString());
+            }
+            return selection;
+        }
+
         // TODO: remove DeleteWhere function
         public void DeleteWhere(string tableName, string tableValue, string stmt)
         {
-            string newStmt = "DELETE FROM " + tableName + " WHERE " + tableValue + " = '" + stmt + "';";
+            string newStmt =
+                "DELETE FROM " + tableName + " WHERE " + tableValue + " = '" + stmt + "';";
             ExecuteStatement(newStmt);
         }
+
         // Better implementation of Delete Where
         public void DeleteMultipleWhere(string tableName, string stmt)
         {
             string newStmt = "DELETE FROM " + tableName + " WHERE " + stmt + ";";
             ExecuteStatement(newStmt);
         }
+
         // Updates a record's value.
         public void UpdateItem(string tableName, string values, string where)
         {
             string newStmt = "UPDATE " + tableName + " SET " + values + " WHERE " + where + ";";
             ExecuteStatement(newStmt);
         }
+
         // Count the amount of records in a table.
         public int Count(string tableName)
         {
@@ -224,6 +292,7 @@ namespace OOP5.source.Database
             }
             return count;
         }
+
         // Count the amount of records in a table where a stmt equals to a specified value.
         public int CountWhere(string tableName, string tableValue)
         {
@@ -231,7 +300,8 @@ namespace OOP5.source.Database
             SQLiteCommand cmd = Connection.CreateCommand();
             try
             {
-                cmd.CommandText = "SELECT COUNT(*) FROM " + tableName + " WHERE " + tableValue + ";";
+                cmd.CommandText =
+                    "SELECT COUNT(*) FROM " + tableName + " WHERE " + tableValue + ";";
                 OpenConnection();
                 count = Convert.ToInt32(cmd.ExecuteScalar());
                 CloseConnection();
@@ -243,6 +313,7 @@ namespace OOP5.source.Database
             }
             return count;
         }
+
         // Returns the amount of times a value repeats by specified argument.
         public int CountWhereTimes(string tableName, string tableValue, int amount)
         {
@@ -250,7 +321,14 @@ namespace OOP5.source.Database
             SQLiteCommand cmd = Connection.CreateCommand();
             try
             {
-                cmd.CommandText = "SELECT COUNT(" + amount.ToString() + ") FROM " + tableName + " WHERE " + tableValue + ";";
+                cmd.CommandText =
+                    "SELECT COUNT("
+                    + amount.ToString()
+                    + ") FROM "
+                    + tableName
+                    + " WHERE "
+                    + tableValue
+                    + ";";
                 OpenConnection();
                 count = Convert.ToInt32(cmd.ExecuteScalar());
                 CloseConnection();
@@ -262,6 +340,7 @@ namespace OOP5.source.Database
             }
             return count;
         }
+
         // Generates the version of the currently used sqlite version.
         private void GenerateVersion()
         {
@@ -279,20 +358,28 @@ namespace OOP5.source.Database
                 MessageBox.Show(ConnectionError.ToString());
             }
         }
+
         // Opens connection to the sqlite database.
         private void OpenConnection()
         {
-            try { Connection.Open(); }
+            try
+            {
+                Connection.Open();
+            }
             catch (SQLiteException e)
             {
                 ConnectionError = e;
                 MessageBox.Show(ConnectionError.ToString());
             }
         }
+
         // Closes connection to the sqlite database.
         private void CloseConnection()
         {
-            try { Connection.Close(); }
+            try
+            {
+                Connection.Close();
+            }
             catch (SQLiteException e)
             {
                 ConnectionError = e;

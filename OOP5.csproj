@@ -41,6 +41,12 @@
     <Compile Update="source\GUI\Forms\CommentsArchive.cs">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Update="source\GUI\Forms\ShoppingCart.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="source\GUI\Forms\ShoppingHistory.cs">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Update="source\GUI\Forms\WriteComment.cs">
       <SubType>Form</SubType>
     </Compile>

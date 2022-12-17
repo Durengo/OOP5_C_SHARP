@@ -6,9 +6,9 @@ using System.Threading.Tasks;
 
 namespace OOP5.source.User
 {
-    class Administrator : User
+    class Financer : User
     {
-        public Administrator(
+        public Financer(
             string username,
             string password,
             string avatar,
@@ -17,10 +17,10 @@ namespace OOP5.source.User
             DateOnly birthday
         ) : base(username, password, avatar, name, surname, birthday)
         {
-            this.SetUserAccountType = AccountType.ADMINISTRATOR;
+            this.SetUserAccountType = AccountType.FINANCER;
         }
 
-        public Administrator(
+        public Financer(
             string username,
             string password,
             string name,
@@ -28,10 +28,10 @@ namespace OOP5.source.User
             DateOnly birthday
         ) : base(username, password, name, surname, birthday)
         {
-            this.SetUserAccountType = AccountType.ADMINISTRATOR;
+            this.SetUserAccountType = AccountType.FINANCER;
         }
 
-        public Administrator(
+        public Financer(
             string username,
             string password,
             Bitmap avatar,
@@ -40,7 +40,7 @@ namespace OOP5.source.User
             DateOnly birthday
         ) : base(username, password, avatar, name, surname, birthday)
         {
-            this.SetUserAccountType = AccountType.ADMINISTRATOR;
+            this.SetUserAccountType = AccountType.FINANCER;
         }
     }
 }

@@ -11,18 +11,20 @@ using System.Windows.Forms;
 namespace OOP5.source.GUI.Forms
 {
     using OOP5.source.Core;
+
     public partial class Wishlist : Form
     {
-
         private ImageList ImageList = new ImageList();
         private List<Product.Product> Products = new List<Product.Product>();
         private List<string> ProductSerialNames = new List<string>();
+
         public Wishlist()
         {
             InitializeComponent();
             ImageList.ImageSize = new Size(64, 64);
             ProductView.LargeImageList = ImageList;
         }
+
         public void ReloadData()
         {
             ViewButton.Enabled = false;
@@ -34,24 +36,46 @@ namespace OOP5.source.GUI.Forms
 
             //int internalCounter = 0;
             var db = SessionManager.Instance.DatabaseInstance.ShopDatabase;
-            int wishlistItems = db.CountWhere("Wishlist", "Username = '" + SessionManager.Instance.currentUser.Username + "'");
-            if (wishlistItems == 0) { return; }
+            int wishlistItems = db.CountWhere(
+                "Wishlist",
+                "Username = '" + SessionManager.Instance.currentUser.Username + "'"
+            );
+            if (wishlistItems == 0)
+            {
+                return;
+            }
             //MessageBox.Show(wishlistItems.ToString());
-            var serialModels = SessionManager.Instance.DatabaseInstance.ShopDatabase.SelectAllOneValueWhere(
-                "Wishlist", "ProductSerialModel", "Username = '" + SessionManager.Instance.currentUser.Username + "'");
+            var serialModels =
+                SessionManager.Instance.DatabaseInstance.ShopDatabase.SelectAllOneValueWhere(
+                    "Wishlist",
+                    "ProductSerialModel",
+                    "Username = '" + SessionManager.Instance.currentUser.Username + "'"
+                );
             ProductSerialNames = serialModels;
 
-            var productTypes = SessionManager.Instance.DatabaseInstance.ShopDatabase.SelectAllOneValueWhere(
-                "Wishlist", "ProductType", "Username = '" + SessionManager.Instance.currentUser.Username + "'");
-            
+            var productTypes =
+                SessionManager.Instance.DatabaseInstance.ShopDatabase.SelectAllOneValueWhere(
+                    "Wishlist",
+                    "ProductType",
+                    "Username = '" + SessionManager.Instance.currentUser.Username + "'"
+                );
 
             for (int i = 0; i < wishlistItems; i++)
             {
-                for(int j = 0; j < SessionManager.Instance.DatabaseInstance.ProductTables.Count(); j++)
+                for (
+                    int j = 0;
+                    j < SessionManager.Instance.DatabaseInstance.ProductTables.Count();
+                    j++
+                )
                 {
-                    if(productTypes[i] == SessionManager.Instance.DatabaseInstance.ProductTables[j])
+                    if (
+                        productTypes[i] == SessionManager.Instance.DatabaseInstance.ProductTables[j]
+                    )
                     {
-                        var item = SessionManager.Instance.DatabaseInstance.ProductDB.SelectProduct(SessionManager.Instance.DatabaseInstance.ProductTables[j], ProductSerialNames[i]);
+                        var item = SessionManager.Instance.DatabaseInstance.ProductDB.SelectProduct(
+                            SessionManager.Instance.DatabaseInstance.ProductTables[j],
+                            ProductSerialNames[i]
+                        );
                         ImageList.Images.Add(item.Model, item.Image);
                         ProductView.Items.Add(item.Name, i);
                     }
@@ -110,10 +134,12 @@ namespace OOP5.source.GUI.Forms
             //     internalCounter++;
             // }
         }
+
         private void ProductView_SelectedIndexChanged(object sender, EventArgs e)
         {
             ViewButton.Enabled = true;
         }
+
         private void BackButton_Click(object sender, EventArgs e)
         {
             SessionManager.Instance.openForms[8].Hide();
@@ -123,6 +149,7 @@ namespace OOP5.source.GUI.Forms
             ImageList.Images.Clear();
             SessionManager.Instance.openForms[4].Show();
         }
+
         private void ViewButton_Click(object sender, EventArgs e)
         {
             SessionManager.Instance.openForms[8].Hide();
@@ -132,14 +159,15 @@ namespace OOP5.source.GUI.Forms
             Form.ReloadData();
             SessionManager.Instance.openForms[7].Show();
         }
+
         private void Wishlist_Closing(object sender, EventArgs e)
         {
-            for (int i = 0; i < SessionManager.Instance.openForms.Count; i++)
-            {
-                SessionManager.Instance.openForms[SessionManager.Instance.openForms.Count - 1 - i].Close();
-            }
+            SessionManager.Instance.Shutdown();
+
+            // for (int i = 0; i < SessionManager.Instance.openForms.Count; i++)
+            // {
+            //     SessionManager.Instance.openForms[SessionManager.Instance.openForms.Count - 1 - i].Close();
+            // }
         }
-
-
     }
 }

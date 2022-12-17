@@ -15,7 +15,14 @@ namespace OOP5.source.Product
         float ProductPrice;
         private Bitmap ProductImage;
 
-        public Product(string type, string serialModel, string name, string description, float price, Bitmap image)
+        public Product(
+            string type,
+            string serialModel,
+            string name,
+            string description,
+            float price,
+            Bitmap image
+        )
         {
             ProductType = type;
             SerialModel = serialModel;
@@ -24,7 +31,14 @@ namespace OOP5.source.Product
             ProductPrice = price;
             ProductImage = image;
         }
-        public Product(string serialModel, string name, string description, float price, Bitmap image)
+
+        public Product(
+            string serialModel,
+            string name,
+            string description,
+            float price,
+            Bitmap image
+        )
         {
             SerialModel = serialModel;
             ProductName = name;
@@ -32,6 +46,7 @@ namespace OOP5.source.Product
             ProductPrice = price;
             ProductImage = image;
         }
+
         public string Type
         {
             get { return ProductType; }

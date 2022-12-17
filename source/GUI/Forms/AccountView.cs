@@ -33,6 +33,7 @@ namespace OOP5.source.GUI.Forms
             passwordDisplay.Text = SessionManager.Instance.currentUser.Password;
             avatarBox.Image = SessionManager.Instance.currentUser.Avatar;
         }
+
         public void ResetForm()
         {
             nameDisplay.Text = "";
@@ -53,10 +54,12 @@ namespace OOP5.source.GUI.Forms
 
         private void AccountView_Closing(object sender, EventArgs e)
         {
-            for (int i = 0; i < SessionManager.Instance.openForms.Count; i++)
-            {
-                SessionManager.Instance.openForms[SessionManager.Instance.openForms.Count - 1 - i].Close();
-            }
+            SessionManager.Instance.Shutdown();
+
+            // for (int i = 0; i < SessionManager.Instance.openForms.Count; i++)
+            // {
+            //     SessionManager.Instance.openForms[SessionManager.Instance.openForms.Count - 1 - i].Close();
+            // }
         }
 
         private void passwordShow_CheckedChanged(object sender, EventArgs e)
@@ -84,8 +87,10 @@ namespace OOP5.source.GUI.Forms
             if (openFileDialog1.ShowDialog() == System.Windows.Forms.DialogResult.OK)
             {
                 string selectedFile = openFileDialog1.FileName;
-                SessionManager.Instance.DatabaseInstance.UserDB.ModifyUserValue(SessionManager.Instance.currentUser.Username,
-                "UserImage = '" + Base64.ConvertAndGetImageAsString(selectedFile) + "'");
+                SessionManager.Instance.DatabaseInstance.UserDB.ModifyUserValue(
+                    SessionManager.Instance.currentUser.Username,
+                    "UserImage = '" + Base64.ConvertAndGetImageAsString(selectedFile) + "'"
+                );
                 SessionManager.Instance.UpdateCurrentUser();
                 UpdateUserText();
 

@@ -11,12 +11,14 @@ namespace OOP5.source.Shop
         private string WishlistUsername;
         private string WishlistProductType;
         private string WishlistProductSerialModel;
+
         public WishlistItem(string username, string type, string serialModel)
         {
             WishlistUsername = username;
             WishlistProductType = type;
             WishlistProductSerialModel = serialModel;
         }
+
         public string Username
         {
             get { return WishlistUsername; }

@@ -9,6 +9,8 @@ namespace OOP5.source.Input
 
     public static class Input
     {
+        static Logger InputLogger = new Logger(new ConsoleLog());
+
         public static int GIBI()
         {
             int converted;
@@ -21,19 +23,19 @@ namespace OOP5.source.Input
                 }
                 catch (ArgumentNullException e)
                 {
-                    Log.ERROR(e);
+                    InputLogger.Log(LogErrorLevel.ERROR, e);
                 }
                 catch (OverflowException e)
                 {
-                    Log.ERROR(e);
+                    InputLogger.Log(LogErrorLevel.ERROR, e);
                 }
                 catch (FormatException e)
                 {
-                    Log.ERROR(e);
+                    InputLogger.Log(LogErrorLevel.ERROR, e);
                 }
                 catch (Exception e)
                 {
-                    Log.ERROR(e);
+                    InputLogger.Log(LogErrorLevel.ERROR, e);
                 }
             }
         }
@@ -49,7 +51,8 @@ namespace OOP5.source.Input
                 }
                 else
                 {
-                    Log.ERROR(
+                    InputLogger.Log(
+                        LogErrorLevel.ERROR,
                         $"EXCEPTION! INPUT OUT OF RANGE: {input} in [MIN]{min}-[MAX]{max}\nTRY AGAIN"
                     );
                 }
@@ -70,19 +73,19 @@ namespace OOP5.source.Input
                 }
                 catch (ArgumentNullException e)
                 {
-                    Log.ERROR(e);
+                    InputLogger.Log(LogErrorLevel.ERROR, e);
                 }
                 catch (OverflowException e)
                 {
-                    Log.ERROR(e);
+                    InputLogger.Log(LogErrorLevel.ERROR, e);
                 }
                 catch (FormatException e)
                 {
-                    Log.ERROR(e);
+                    InputLogger.Log(LogErrorLevel.ERROR, e);
                 }
                 catch (Exception e)
                 {
-                    Log.ERROR(e);
+                    InputLogger.Log(LogErrorLevel.ERROR, e);
                 }
             }
         }
@@ -98,7 +101,8 @@ namespace OOP5.source.Input
                 }
                 else
                 {
-                    Log.ERROR(
+                    InputLogger.Log(
+                        LogErrorLevel.ERROR,
                         $"EXCEPTION! INPUT OUT OF RANGE: {input} in [MIN]{min}-[MAX]{max}\nTRY AGAIN"
                     );
                 }
@@ -119,19 +123,19 @@ namespace OOP5.source.Input
                 }
                 catch (ArgumentNullException e)
                 {
-                    Log.ERROR(e);
+                    InputLogger.Log(LogErrorLevel.ERROR, e);
                 }
                 catch (OverflowException e)
                 {
-                    Log.ERROR(e);
+                    InputLogger.Log(LogErrorLevel.ERROR, e);
                 }
                 catch (FormatException e)
                 {
-                    Log.ERROR(e);
+                    InputLogger.Log(LogErrorLevel.ERROR, e);
                 }
                 catch (Exception e)
                 {
-                    Log.ERROR(e);
+                    InputLogger.Log(LogErrorLevel.ERROR, e);
                 }
             }
         }
@@ -147,7 +151,8 @@ namespace OOP5.source.Input
                 }
                 else
                 {
-                    Log.ERROR(
+                    InputLogger.Log(
+                        LogErrorLevel.ERROR,
                         $"EXCEPTION! INPUT OUT OF RANGE: {input} in [MIN]{min}-[MAX]{max}\nTRY AGAIN"
                     );
                 }
@@ -160,21 +165,21 @@ namespace OOP5.source.Input
         {
             while (true)
             {
-                Log.INFO("(Y/y/1/Enter or N/n/0/Escape) PRESS KEY:");
+                InputLogger.Log(LogErrorLevel.INFO, "(Y/y/1/Enter or N/n/0/Escape) PRESS KEY:");
                 ConsoleKey key = Console.ReadKey().Key;
                 if (key == ConsoleKey.Y || key == ConsoleKey.D1 || key == ConsoleKey.Enter)
                 {
-                    Log.TRACE("");
-                    Log.INFO($"KEY PRESSED = {key}");
+                    InputLogger.Log(LogErrorLevel.TRACE, "");
+                    InputLogger.Log(LogErrorLevel.INFO, $"KEY PRESSED = {key}");
                     return true;
                 }
                 else if (key == ConsoleKey.N || key == ConsoleKey.D0 || key == ConsoleKey.Escape)
                 {
-                    Log.TRACE("");
-                    Log.INFO($"KEY PRESSED = {key}");
+                    InputLogger.Log(LogErrorLevel.TRACE, "");
+                    InputLogger.Log(LogErrorLevel.INFO, $"KEY PRESSED = {key}");
                     return false;
                 }
-                Log.TRACE("");
+                InputLogger.Log(LogErrorLevel.TRACE, "");
             }
         }
 
@@ -200,7 +205,8 @@ namespace OOP5.source.Input
                 valid = InputValidation.NameValidation(input);
                 if (!valid)
                 {
-                    Log.ERROR(
+                    InputLogger.Log(
+                        LogErrorLevel.ERROR,
                         "THIS DATA CANNOT HAVE:\n1.MORE THAN ONE CAPITAL LETTER;\n2.A LOWERCASE FIRST LETTER;\n3.ANY NUMBERS;\n4.ANY SYMBOLS;\n5. WHITESPACE\nTry again."
                     );
                 }
